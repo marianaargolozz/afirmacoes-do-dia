@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Afirmações do dia</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap" rel="stylesheet">
+
   <style>
     body {
       background-image: url('https://i.pinimg.com/736x/63/30/64/633064da548f46f368768e42315181be.jpg');
@@ -11,7 +16,8 @@
       background-position: center;
       background-repeat: no-repeat;
       color: #FF1493;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
+      /* 2. APLICAR A NOVA FONTE (LINHA MODIFICADA) */
+      font-family: 'Gochi Hand', cursive, sans-serif; 
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -137,7 +143,7 @@
     }
     function nomearMes(mes) {
       const nomes = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho',
-                    'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+                      'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
       return nomes[mes];
     }
 
@@ -174,8 +180,8 @@
       
       // Som de clique
       somClique.currentTime = 0;
-somClique.volume = 1.0; // volume máximo
-somClique.play();
+      somClique.volume = 1.0; // volume máximo
+      somClique.play();
 
       // Fade out, troca texto e fade in
       mensagemDiv.classList.remove('show'); // fade out (opacity 0)
