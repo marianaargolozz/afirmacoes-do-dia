@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Afirmações do dia</title>
+  <style>
+    body {
+      background-image: url('https://i.pinimg.com/736x/63/30/64/633064da548f46f368768e42315181be.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #FF1493;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      backdrop-filter: blur(5px);
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 2px #fff;
+    }
+    #dataAtual {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 2px #fff;
+    }
+
+    .mensagem {
+      background: rgba(255, 240, 250, 0.8);
+      border: 2px dashed #c94fcf;
+      padding: 20px;
+      border-radius: 20px;
+      font-size: 1.5rem;
+      min-height: 100px;
+      margin-bottom: 30px;
+      box-shadow: 0 0 10px #ffd1f7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+    }
+
+    .mensagem.show {
+      opacity: 1;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      background-color: #FF1493;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 180px;
+    }
+
+    button:hover {
+      background-color: #e07fcf;
+    }
+  </style>
+</head>
+<body>
+  <h1>💖 Afirmações do dia 💖</h1>
+  <div id="dataAtual">Carregando data...</div>
+  <div class="mensagem" id="mensagem"></div>
+  <button onclick="gerarMensagem(true)">clique aqui ✨</button>
+
+  <script>
+    const frasesPositivas = [
+      "Deus é minha força e meu guia em todos os momentos 💖🙏",
+      "Eu mereço só coisa linda e fofa na minha vida! 🌸✨",
+      "Confio no plano divino, pois tudo acontece no tempo certo ⏳💫",
+      "Minha energia positiva atrai coisas incríveis e abençoadas 💕🌟",
+      "Sou forte, doce e capaz de realizar tudo que sonhar 🐰💪",
+      "A paz de Deus enche meu coração e afasta todo medo 🕊️💖",
+      "Cada dia é uma nova chance para crescer e brilhar ✨🌈",
+      "Entrego meus sonhos a Deus e confio no Seu amor infinito 🙌💞",
+      "Eu atraio sucesso, saúde e felicidade naturalmente 🍀🌷",
+      "Minha mente é um jardim de pensamentos felizes e luzentes 🌻🌟",
+      "Com fé e positividade, tudo se torna possível 💫🙏",
+      "Sou guiado(a) pela luz divina e pela minha força interior 💡✨",
+      "A energia que coloco no mundo volta para mim multiplicada 💖🌀",
+      "Deus me fortalece para vencer qualquer desafio 💪🙏",
+      "Eu escolho ver o lado bom e fofo de todas as situações 🌸💫",
+      "Minha alegria transborda em purpurina e gratidão ✨🎉",
+      "Sou abençoado(a) e protegido(a) pelo amor de Deus 🛡️💞",
+      "Eu mereço paz, amor e prosperidade todos os dias 🌈🕊️",
+      "Minha fé me mantém firme e cheia(o) de esperança 🌟🙏",
+      "Eu crio minha realidade com pensamentos doces e ações lindas 🍭💖",
+      "Deus guia meus passos e abre portas que eu nem imaginava 🚪✨",
+      "Eu sou um ímã para coisas boas e milagres diários 🧲🌟",
+      "Minha mente está aberta para aprender, crescer e amar 💕📚",
+      "Sou grata(o) por tudo que já conquistei e pelo que está por vir 🎁💖",
+      "Com Deus e minha energia positiva, atraio só o melhor 💞🙏",
+      "Cada passo que dou me aproxima dos meus sonhos mais lindos 🌈🐾",
+      "Estou no caminho certo, guiado(a) por fé e esperança 🌟🛤️",
+      "Eu me permito ser feliz e espalhar fofura e amor 🐰💝",
+      "A graça de Deus renova minha força a cada manhã 🌅✨",
+      "Minha vida é um conto de fadas cheio de luz e magia 🧚‍♀️💖",
+      "Eu libero o que não me serve e faço espaço para o novo 🌸🎈",
+      "Confio no processo divino e sigo com coragem e amor 🙌💞",
+      "Sou merecedor(a) de tudo que há de melhor no mundo 🌎💝",
+      "Minha energia atrai pessoas e coisas tão doces quanto algodão 🍭💫",
+      "Deus é meu refúgio seguro em tempos de tempestade ⛅🛡️",
+      "Eu crio oportunidades com meus pensamentos e ações positivas 🌟💡",
+      "Estou cercado(a) de boas vibrações, luz e proteção divina 🌈🙏",
+      "Cada desafio é uma chance para crescer e brilhar ainda mais ✨🐇",
+      "Eu mereço amor, sucesso, saúde e muita alegria 💖🌟",
+      "Deus nunca me abandona, mesmo quando não percebo 🕊️💞",
+      "Eu escolho viver leve, feliz e cheia(o) de gratidão 🌸🙏",
+      "A fé em Deus me dá a certeza de dias melhores 🌅💫",
+      "Sou forte e me levanto igual gatinho que cai em pé 🐱✨",
+      "Eu atraio saúde, amor e prosperidade para minha vida 💕🍀",
+      "Minha mente está focada em pensamentos que me fazem feliz 🌻💖",
+      "Estou aberta(o) para receber milagres e boas surpresas 🎁💞",
+      "Deus me ama e me guia com amor infinito e luz 💡💖",
+      "Eu mereço descanso, paz e renovação todos os dias 🛌🌷",
+      "Meu coração está aberto para receber todo amor do mundo 💝🌎",
+      "Com fé, amor e positividade, atraio um futuro lindo e brilhante 🌟✨"
+    ];
+
+    function nomearDiaSemana(dia) {
+      const nomes = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
+      return nomes[dia];
+    }
+    function nomearMes(mes) {
+      const nomes = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho',
+                    'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+      return nomes[mes];
+    }
+
+    function mostrarData() {
+      const hoje = new Date();
+      const diaSemana = nomearDiaSemana(hoje.getDay());
+      const dia = hoje.getDate();
+      const mes = nomearMes(hoje.getMonth());
+      const ano = hoje.getFullYear();
+
+      const textoData = `Hoje é ${diaSemana}, ${dia} de ${mes} de ${ano}`;
+      document.getElementById('dataAtual').innerText = textoData;
+    }
+
+    function gerarMensagem(forcarOutra = false) {
+      mostrarData();
+
+      const hoje = new Date();
+      const chave = hoje.getFullYear() + '-' + (hoje.getMonth() + 1) + '-' + hoje.getDate();
+      let indiceSalvo = localStorage.getItem('mensagemDoDia');
+      let dataSalva = localStorage.getItem('dataMensagem');
+
+      if (dataSalva !== chave || forcarOutra) {
+        const novoIndice = Math.floor(Math.random() * frasesPositivas.length);
+        localStorage.setItem('mensagemDoDia', novoIndice);
+        localStorage.setItem('dataMensagem', chave);
+        indiceSalvo = novoIndice;
+      }
+
+      const mensagemDiv = document.getElementById('mensagem');
+      mensagemDiv.classList.remove('show'); // reset opacity
+      mensagemDiv.innerText = frasesPositivas[indiceSalvo];
+
+      // reflow para garantir transição
+      void mensagemDiv.offsetWidth;
+
+      mensagemDiv.classList.add('show'); // fade-in
+    }
+
+    mostrarData();
+  </script>
+</body>
+</html>
