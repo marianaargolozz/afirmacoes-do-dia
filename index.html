@@ -174,7 +174,8 @@
       
       // Som de clique
       somClique.currentTime = 0;
-      somClique.play();
+somClique.volume = 1.0; // volume máximo
+somClique.play();
 
       // Fade out, troca texto e fade in
       mensagemDiv.classList.remove('show'); // fade out (opacity 0)
