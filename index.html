@@ -75,7 +75,7 @@
   <h1>💖 Afirmações do dia 💖</h1>
   <div id="dataAtual">Carregando data...</div>
   <div class="mensagem" id="mensagem"></div>
-  <button onclick="gerarMensagem(true)">clique aqui ✨</button>
+  <button id="btnMensagem">clique aqui ✨</button>
 
   <script>
     const frasesPositivas = [
@@ -152,6 +152,9 @@
       document.getElementById('dataAtual').innerText = textoData;
     }
 
+    // Cria áudio de clique em base64 (som simples de clique)
+    const somClique = new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAgD4AAIA+AAABAAgAZGF0YQAAAAA=");
+
     function gerarMensagem(forcarOutra = false) {
       mostrarData();
 
@@ -168,16 +171,22 @@
       }
 
       const mensagemDiv = document.getElementById('mensagem');
-      mensagemDiv.classList.remove('show'); // reset opacity
-      mensagemDiv.innerText = frasesPositivas[indiceSalvo];
+      
+      // Som de clique
+      somClique.currentTime = 0;
+      somClique.play();
 
-      // reflow para garantir transição
-      void mensagemDiv.offsetWidth;
-
-      mensagemDiv.classList.add('show'); // fade-in
+      // Fade out, troca texto e fade in
+      mensagemDiv.classList.remove('show'); // fade out (opacity 0)
+      setTimeout(() => {
+        mensagemDiv.innerText = frasesPositivas[indiceSalvo];
+        mensagemDiv.classList.add('show'); // fade in (opacity 1)
+      }, 300); // espera 300ms para trocar mensagem e aparecer
     }
 
     mostrarData();
+
+    document.getElementById('btnMensagem').addEventListener('click', () => gerarMensagem(true));
   </script>
 </body>
 </html>
