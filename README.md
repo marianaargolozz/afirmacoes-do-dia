@@ -28,6 +28,8 @@ Para publicar essa página na internet usando o GitHub Pages, siga os passos:
 
 4. Aguarde alguns minutos e acesse o link gerado pelo GitHub para ver sua página online.
 
+5. O meu link é esse https://marianaargolozz.github.io/afirmacoes-do-dia/
+
 ---
 
 ## Tecnologias usadas
