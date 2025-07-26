@@ -4,14 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Afirmações do dia</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
+    /* Estilos Gerais (para todas as telas) */
     body {
       background-image: url('https://i.pinimg.com/736x/63/30/64/633064da548f46f368768e42315181be.jpg');
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       color: #FF1493;
-      font-family: 'Poppins', cursive, sans-serif;
+      font-family: 'Poppins', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -21,6 +27,7 @@
       backdrop-filter: blur(5px);
       text-align: center;
       padding: 20px;
+      box-sizing: border-box; /* Garante que o padding não cause overflow */
     }
 
     h1 {
@@ -48,6 +55,8 @@
       justify-content: center;
       opacity: 0;
       transition: opacity 0.8s ease-in-out;
+      width: 90%; /* Define uma largura para a caixa */
+      max-width: 500px; /* Define uma largura máxima */
     }
 
     .mensagem.show {
@@ -69,6 +78,28 @@
     button:hover {
       background-color: #e07fcf;
     }
+
+    /* =============================================================== */
+    /* == CÓDIGO PARA AJUSTES EM TELAS PEQUENAS (CELULARES) - NOVO! == */
+    /* =============================================================== */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem; /* Fonte do título menor */
+      }
+      #dataAtual {
+        font-size: 1rem; /* Fonte da data menor */
+      }
+      .mensagem {
+        font-size: 1.2rem; /* Fonte da mensagem menor */
+        padding: 15px; /* Menos espaçamento interno */
+      }
+      button {
+        font-size: 1rem; /* Fonte do botão menor */
+        width: 160px; /* Botão um pouco menor */
+        padding: 12px 20px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -78,6 +109,7 @@
   <button id="btnMensagem">clique aqui ✨</button>
 
   <script>
+    // Seu script JavaScript continua o mesmo, sem alterações.
     const frasesPositivas = [
       "Deus é minha força e meu guia em todos os momentos 💖🙏",
       "Eu mereço só coisa linda e fofa na minha vida! 🌸✨",
@@ -137,7 +169,7 @@
     }
     function nomearMes(mes) {
       const nomes = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho',
-                    'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+                      'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
       return nomes[mes];
     }
 
@@ -152,40 +184,31 @@
       document.getElementById('dataAtual').innerText = textoData;
     }
 
-    // Cria áudio de clique em base64 (som simples de clique)
     const somClique = new Audio("data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAgD4AAIA+AAABAAgAZGF0YQAAAAA=");
 
     function gerarMensagem(forcarOutra = false) {
       mostrarData();
-
       const hoje = new Date();
       const chave = hoje.getFullYear() + '-' + (hoje.getMonth() + 1) + '-' + hoje.getDate();
       let indiceSalvo = localStorage.getItem('mensagemDoDia');
       let dataSalva = localStorage.getItem('dataMensagem');
-
       if (dataSalva !== chave || forcarOutra) {
         const novoIndice = Math.floor(Math.random() * frasesPositivas.length);
         localStorage.setItem('mensagemDoDia', novoIndice);
         localStorage.setItem('dataMensagem', chave);
         indiceSalvo = novoIndice;
       }
-
       const mensagemDiv = document.getElementById('mensagem');
-      
-      // Som de clique
       somClique.currentTime = 0;
+      somClique.volume = 1.0;
       somClique.play();
-
-      // Fade out, troca texto e fade in
-      mensagemDiv.classList.remove('show'); // fade out (opacity 0)
+      mensagemDiv.classList.remove('show');
       setTimeout(() => {
         mensagemDiv.innerText = frasesPositivas[indiceSalvo];
-        mensagemDiv.classList.add('show'); // fade in (opacity 1)
-      }, 300); // espera 300ms para trocar mensagem e aparecer
+        mensagemDiv.classList.add('show');
+      }, 300);
     }
-
     mostrarData();
-
     document.getElementById('btnMensagem').addEventListener('click', () => gerarMensagem(true));
   </script>
 </body>
