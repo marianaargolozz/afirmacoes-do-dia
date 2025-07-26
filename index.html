@@ -27,7 +27,7 @@
       backdrop-filter: blur(5px);
       text-align: center;
       padding: 20px;
-      box-sizing: border-box; /* Garante que o padding não cause overflow */
+      box-sizing: border-box; 
     }
 
     h1 {
@@ -55,8 +55,8 @@
       justify-content: center;
       opacity: 0;
       transition: opacity 0.8s ease-in-out;
-      width: 90%; /* Define uma largura para a caixa */
-      max-width: 500px; /* Define uma largura máxima */
+      width: 90%; 
+      max-width: 500px;
     }
 
     .mensagem.show {
@@ -79,27 +79,27 @@
       background-color: #e07fcf;
     }
 
-    /* =============================================================== */
-    /* == CÓDIGO PARA AJUSTES EM TELAS PEQUENAS (CELULARES)  == */
-    /* =============================================================== */
-    @media (max-width: 500px) {
+    /* Estilos para telas pequenas (celulares) */
+    @media (max-width: 600px) {
       h1 {
-        font-size: 2rem; /* Fonte do título menor */
+        font-size: 2rem;
       }
       #dataAtual {
-        font-size: 1rem; /* Fonte da data menor */
+        font-size: 1rem;
       }
       .mensagem {
-        font-size: 1.2rem; /* Fonte da mensagem menor */
-        padding: 15px; /* Menos espaçamento interno */
+        font-size: 1.2rem;
+        padding: 15px;
+        white-space: nowrap; 
+        overflow: hidden; 
+        text-overflow: ellipsis; 
       }
       button {
-        font-size: 1rem; /* Fonte do botão menor */
-        width: 160px; /* Botão um pouco menor */
+        font-size: 1rem;
+        width: 160px;
         padding: 12px 20px;
       }
     }
-
   </style>
 </head>
 <body>
@@ -109,7 +109,6 @@
   <button id="btnMensagem">clique aqui ✨</button>
 
   <script>
-    // Seu script JavaScript continua o mesmo, sem alterações.
     const frasesPositivas = [
       "Deus é minha força e meu guia em todos os momentos 💖🙏",
       "Eu mereço só coisa linda e fofa na minha vida! 🌸✨",
@@ -208,7 +207,11 @@
         mensagemDiv.classList.add('show');
       }, 300);
     }
+    
+    // Mostra a data e a primeira mensagem assim que a página carrega
     mostrarData();
+    gerarMensagem(); 
+
     document.getElementById('btnMensagem').addEventListener('click', () => gerarMensagem(true));
   </script>
 </body>
